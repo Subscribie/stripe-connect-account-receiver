@@ -69,3 +69,29 @@ Verify running:
 ```
 sudo systemctl status deno-stripe-connect-account-accounce-server.service
 ```
+
+### Speed
+
+Excluding the network the deno code can respond in under 4 milliseconds
+```
+time curl -v http://127.0.0.1:5050/ -d '{"stripe_connect_account_id":"abc123", "site_url":"example.com", "live_mode": 0}'
+*   Trying 127.0.0.1...
+* TCP_NODELAY set
+* Connected to 127.0.0.1 (127.0.0.1) port 5050 (#0)
+> POST / HTTP/1.1
+> Host: 127.0.0.1:5050
+> User-Agent: curl/7.58.0
+> Accept: */*
+> Content-Length: 80
+> Content-Type: application/x-www-form-urlencoded
+> 
+* upload completely sent off: 80 out of 80 bytes
+< HTTP/1.1 200 OK
+< content-length: 79
+< 
+* Connection #0 to host 127.0.0.1 left intact
+Stripe connect account added or updated. site_url: example.com account: abc123.
+real	0m0.008s
+user	0m0.003s
+sys	0m0.003s
+```
