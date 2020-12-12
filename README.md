@@ -50,23 +50,8 @@ step through in the debugger. Very useful.
 Install deno
 Install and enable systemd unit file to keep it running
 
-Example systemd unit file config for `/etc/systemd/system/deno.service`
-```
-[Unit]
-Description = Deno 
-After = network.target network-online.target
-Wants = network-online.target
-
-[Service]
-Type = simple
-PIDFile = /run/deno.pid
-WorkingDirectory=/path/to/app/
-ExecStart = /home/<username>/.deno/bin/deno run --inspect-brk --allow-net=127.0.0.1 --allow-env --allow-read --allow-write=stripe_connect_sites.db,stripe_connect_sites.db-journal index.js
-Restart = always
-RestartSec = 3
-StartLimitInterval = 5
-StartLimitBurst = 50
-```
+See example systemd unit service file in `deno-systemd-service.example` 
+Save to `/etc/systemd/system/deno-systemd-service.example`
 
 To enable:
 
