@@ -44,6 +44,11 @@ deno run --inspect-brk --allow-net=127.0.0.1 --allow-env --allow-read=.env,.env.
 Then visit: chrome://inspect/#devices in chrome, and click "inspect" to
 step through in the debugger. Very useful.
 
+Monitor via the systemd service:
+
+```
+journalctl -u deno-stripe-connect-account-accounce-server.service -f
+```
 
 ## How to deploy
 
@@ -51,14 +56,16 @@ Install deno
 Install and enable systemd unit file to keep it running
 
 See example systemd unit service file in `deno-systemd-service.example` 
-Save to `/etc/systemd/system/deno-systemd-service.example`
+Save to `/etc/systemd/system/deno-stripe-connect-account-accounce-server.service`
 
 To enable:
 
 ```
 sudo systemctl daemon-reload
-sudo systemctl start deno.service
+sudo systemctl start deno-stripe-connect-account-accounce-server.service
 ```
 
 Verify running:
-sudo systemctl status deno.service
+```
+sudo systemctl status deno-stripe-connect-account-accounce-server.service
+```
