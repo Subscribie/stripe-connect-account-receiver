@@ -52,6 +52,7 @@ journalctl -u deno-stripe-connect-account-accounce-server.service -f
 
 ## How to deploy
 
+Install redis, enable as a service (apt repo does this automatically, verify listening on localhost only)
 Install deno
 Install and enable systemd unit file to keep it running
 
