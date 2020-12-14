@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.80.0/http/server.ts";
-import { DB } from "https://deno.land/x/sqlite@v2.3.2/mod.ts";
 import { config } from "https://deno.land/x/dotenv@v1.0.1/mod.ts";
 
 
@@ -8,17 +7,17 @@ console.log(config({ safe: true, export: true}));
 
 const PORT = parseInt(Deno.env.get('PORT'));
 const HOSTNAME = Deno.env.get('HOSTNAME');
-const DB_NAME = Deno.env.get('DB_NAME');
+const REDIS_HOSTNAME = Deno.env.get('REDIS_HOSTNAME');
+const REDIS_PORT = parseInt(Deno.env.get('REDIS_PORT'));
 
 const s = serve({ hostname: HOSTNAME, port: PORT});
 console.log("http://:" + HOSTNAME + ":" + PORT);
 
+const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8');
-const db = new DB(DB_NAME);
 
-// Create database if does not exist
-db.query("CREATE TABLE IF NOT EXISTS sites (id INTEGER PRIMARY KEY AUTOINCREMENT, site_url TEXT, stripe_connect_account_id TEXT UNIQUE, live_mode BOOLEAN)");
-db.close();
+const redisConn = await Deno.connect({hostname: REDIS_HOSTNAME, port: REDIS_PORT})
+
 
 for await (const req of s) {
   const requestBody = await decoder.decode(await Deno.readAll(req.body));
@@ -28,14 +27,16 @@ for await (const req of s) {
   const live_mode = parsedBody['live_mode'];
 
   // Store the stripe_connect_account_id against the shop_url
-  const sitesDB = new DB(DB_NAME);
   console.log([site_url, stripe_connect_account_id, live_mode]);
-  sitesDB.query("INSERT OR REPLACE INTO sites (site_url, stripe_connect_account_id, live_mode) VALUES (?, ?, ?)", [site_url, stripe_connect_account_id, live_mode]);
-  sitesDB.close();
-  
-  const response = `Stripe connect account added or updated. site_url: ${site_url} account: ${stripe_connect_account_id}.`;
-  console.log(response);
-  req.respond({ body: response});
+  redisConn.write(encoder.encode(`set ${stripe_connect_account_id} ${site_url}\n\n`));
+  // Read response from redis
+  const buf = new Uint8Array(1024);
+  await redisConn.read(buf);
+  console.log(decoder.decode(buf));
+
+  const msg = `Stripe connect account added or updated. site_url: ${site_url} account: ${stripe_connect_account_id}.`;
+  console.log(msg);
+  req.respond({ body: msg});
 }
 
 
