@@ -52,7 +52,8 @@ journalctl -u deno-stripe-connect-account-accounce-server.service -f
 
 ## How to deploy
 
-Install redis, enable as a service (apt repo does this automatically, verify listening on localhost only)
+Install redis, enable as a service (apt repo does this automatically,
+  Verify redis is listening on localhost onlw. How? `nc -zv <server-ip> 6379` e.g. `nc -zv 192.168.1.1 6379` or `telnet <server-ip> 6379`
 Install deno
 Install and enable systemd unit file to keep it running
 
