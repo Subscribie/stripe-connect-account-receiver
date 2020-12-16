@@ -32,13 +32,13 @@ cp .env.example .env
 Then run securly:
 
 ```
-deno run --allow-net=127.0.0.1 --allow-env --allow-read=.env,.env.example,.env.defaults,stripe_connect_sites.db,stripe_connect_sites.db-journal --allow-write=stripe_connect_sites.db,stripe_connect_sites.db-journal index.js
+deno run --allow-net=127.0.0.1 --allow-env --allow-read=.env,.env.example,.env.defaults index.js
 ```
 
 ## How to debug
 
 ```
-deno run --inspect-brk --allow-net=127.0.0.1 --allow-env --allow-read=.env,.env.example,.env.defaults,stripe_connect_sites.db,stripe_connect_sites.db-journal --allow-write=stripe_connect_sites.db,stripe_connect_sites.db-journal index.js
+deno run --inspect-brk --allow-net=127.0.0.1 --allow-env --allow-read=.env,.env.example,.env.defaults index.js
 ```
 
 Then visit: chrome://inspect/#devices in chrome, and click "inspect" to
