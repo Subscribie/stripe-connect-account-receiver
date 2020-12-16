@@ -9,6 +9,7 @@ const PORT = parseInt(Deno.env.get('PORT'));
 const HOSTNAME = Deno.env.get('HOSTNAME');
 const REDIS_HOSTNAME = Deno.env.get('REDIS_HOSTNAME');
 const REDIS_PORT = parseInt(Deno.env.get('REDIS_PORT'));
+const REDIS_PASSWORD = Deno.env.get('REDIS_PASSWORD');
 
 const s = serve({ hostname: HOSTNAME, port: PORT});
 console.log("http://:" + HOSTNAME + ":" + PORT);
@@ -17,6 +18,11 @@ const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8');
 
 const redisConn = await Deno.connect({hostname: REDIS_HOSTNAME, port: REDIS_PORT})
+// Login to redis
+redisConn.write(encoder.encode(`AUTH ${REDIS_PASSWORD}\n\n`));
+const loginBuf = new Uint8Array(1024);
+await redisConn.read(loginBuf);
+console.log(decoder.decode(loginBuf));
 
 
 for await (const req of s) {
@@ -28,6 +34,7 @@ for await (const req of s) {
 
   // Store the stripe_connect_account_id against the shop_url
   console.log([site_url, stripe_connect_account_id, live_mode]);
+  // Send stripe connect account id and shop url as key/value
   redisConn.write(encoder.encode(`set ${stripe_connect_account_id} ${site_url}\n\n`));
   // Read response from redis
   const buf = new Uint8Array(1024);
