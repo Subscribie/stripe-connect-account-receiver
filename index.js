@@ -3,7 +3,7 @@ import { config } from "https://deno.land/x/dotenv@v1.0.1/mod.ts";
 
 
 // Load config from .env
-console.log(config({ safe: true, export: true}));
+console.log(config({ export: true}));
 
 const PORT = parseInt(Deno.env.get('PORT'));
 const HOSTNAME = Deno.env.get('HOSTNAME');
