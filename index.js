@@ -5,14 +5,14 @@ import { config } from "https://deno.land/x/dotenv@v1.0.1/mod.ts";
 // Load config from .env
 console.log(config({ export: true}));
 
-const PORT = parseInt(Deno.env.get('PORT'));
+const DENO_PORT = parseInt(Deno.env.get('DENO_PORT'));
 const HOSTNAME = Deno.env.get('HOSTNAME');
 const REDIS_HOSTNAME = Deno.env.get('REDIS_HOSTNAME');
 const REDIS_PORT = parseInt(Deno.env.get('REDIS_PORT'));
 const REDIS_PASSWORD = Deno.env.get('REDIS_PASSWORD');
 
-const s = serve({ hostname: HOSTNAME, port: PORT});
-console.log("http://:" + HOSTNAME + ":" + PORT);
+const s = serve({ hostname: HOSTNAME, port: DENO_PORT});
+console.log("http://:" + HOSTNAME + ":" + DENO_PORT);
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8');
