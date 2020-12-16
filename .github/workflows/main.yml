@@ -60,4 +60,5 @@ jobs:
             ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
             dokku-host: ${{ secrets.DOKKU_HOST }}
             app-name: 'testing-stripe-connect-account-reciever'
+            git-push-flags: --force 
 
