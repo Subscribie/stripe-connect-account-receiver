@@ -49,9 +49,9 @@ jobs:
           ssh dokku@$DOKKU_HOST -C "dokku apps:create testing-stripe-connect-account-reciever" | true
           echo The url will be testing-stripe-connect-account-reciever.pcpink.co.uk
           ssh dokku@$DOKKU_HOST -C "dokku git:initialize testing-stripe-connect-account-reciever"
-          sh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-reciever PORT=${{ secrets.PORT }} HOSTNAME=${{ secrets.PORT }}
-          sh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-reciever REDIS_HOSTNAME=${{ secrets.REDIS_HOSTNAME }} REDIS_PORT=${{ secrets.REDIS_PORT }}
-          sh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-reciever REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}
+          sh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-reciever PORT=${{ secrets.PORT }} HOSTNAME=${{ secrets.PORT }}"
+          sh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-reciever REDIS_HOSTNAME=${{ secrets.REDIS_HOSTNAME }} REDIS_PORT=${{ secrets.REDIS_PORT }}"
+          sh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-reciever REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}"
           
       - id: deploy
         name: Deploy to dokku
