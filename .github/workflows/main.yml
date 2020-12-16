@@ -25,6 +25,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Create dokku app if dosent already exist using dokku apps:create
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DOKKU_HOST: ${{ secrets.DOKKU_HOST }}
+        run: |
+          set -x
+          eval `ssh-agent -s`
+          ssh-add - <<< "$SSH_PRIVATE_KEY"
+          echo Creating dokku app testing-stripe-connect-account-reciever
+          ssh dokku@$DOKKU_HOST -C "dokku apps:create testing-stripe-connect-account-reciever" | true
+          echo The url will be testing-stripe-connect-account-reciever.pcpink.co.uk
+          ssh dokku@$DOKKU_HOST -C "dokku git:initialize testing-stripe-connect-account-reciever"
+          
       - id: deploy
         name: Deploy to dokku
         uses: idoberko2/dokku-deploy-github-action@v1
@@ -33,13 +46,3 @@ jobs:
             dokku-host: ${{ secrets.DOKKU_HOST }}
             app-name: 'testing-stripe-connect-account-reciever'
 
-      - name: Prepare runner with ssh keys
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          DOKKU_HOST: ${{ secrets.DOKKU_HOST }}
-        run: |
-          set -x
-          mkdir -p ~/.ssh
-          eval `ssh-agent -s`
-          ssh-add - <<< "$SSH_PRIVATE_KEY"
-          ssh-keyscan $DOKKU_HOST >> ~/.ssh/known_hosts
