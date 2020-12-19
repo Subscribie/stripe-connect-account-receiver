@@ -32,13 +32,13 @@ cp .env.example .env
 Then run securly:
 
 ```
-deno run --allow-net=127.0.0.1 --allow-env --allow-read=.env,.env.example,.env.defaults index.js
+deno run --allow-net --allow-env --allow-read=.env,.env.example,.env.defaults index.js
 ```
 
 ## How to debug
 
 ```
-deno run --inspect-brk --allow-net=127.0.0.1 --allow-env --allow-read=.env,.env.example,.env.defaults index.js
+deno run --inspect-brk --allow-net --allow-env --allow-read=.env,.env.example,.env.defaults index.js
 ```
 
 Then visit: chrome://inspect/#devices in chrome, and click "inspect" to
