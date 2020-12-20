@@ -1,4 +1,9 @@
-# Accept POST requests from sites and store their stripe connect account id
+# stripe-connect-account-announcer
+
+Sites announce their stripe connect account id to this endpoint.
+
+Accepts POST requests from sites and stores their stripe connect account id in
+redis.
 
 Expected input:
 
