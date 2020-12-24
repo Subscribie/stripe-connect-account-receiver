@@ -48,7 +48,7 @@ jobs:
           echo The url will be testing-stripe-connect-account-announcer.pcpink.co.uk
           ssh dokku@$DOKKU_HOST -C "dokku git:initialize testing-stripe-connect-account-announcer"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer DENO_PORT=${{ secrets.DENO_PORT }} HOSTNAME=${{ secrets.HOSTNAME }}"
-          ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart prod-stripe-connect-account-announcer BIND_ADDRESS=${{ secrets.BIND_ADDRESS }}"
+          ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer BIND_ADDRESS=${{ secrets.BIND_ADDRESS }}"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer REDIS_HOSTNAME=${{ secrets.REDIS_HOSTNAME }} REDIS_PORT=${{ secrets.REDIS_PORT }}"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}"
           
@@ -61,3 +61,8 @@ jobs:
             app-name: 'testing-stripe-connect-account-announcer'
             git-push-flags: --force 
 
+      - id: smoke-test
+        name: Smoke test
+        run: |
+          set -x
+          curl -v -H 'Content-Type: application/json' -d '{}' testing-stripe-connect-account-announcer.pcpink.co.uk:8001| grep 'Stripe connect account added or updated'

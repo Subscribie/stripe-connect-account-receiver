@@ -56,5 +56,11 @@ jobs:
             ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
             dokku-host: ${{ secrets.DOKKU_HOST }}
             app-name: 'prod-stripe-connect-account-announcer'
-            git-push-flags: --force 
+            git-push-flags: --force
+
+      - id: smoke-test
+        name: Smoke test
+        run: |
+          set -x
+          curl -v -H 'Content-Type: application/json' -d '{}' prod-stripe-connect-account-announcer.pcpink.co.uk:8001| grep 'Stripe connect account added or updated'
 

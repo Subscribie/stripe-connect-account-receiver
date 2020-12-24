@@ -77,6 +77,12 @@ Verify running:
 sudo systemctl status deno-stripe-connect-account-accounce-server.service
 ```
 
+## Smoke test
+
+```
+curl -v -H 'Content-Type: application/json' -d '{}' <domain>:8001| grep 'Stripe connect account added or updated'
+```
+
 ### Speed
 
 Excluding the network the deno code can respond in under 4 milliseconds
