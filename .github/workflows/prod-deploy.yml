@@ -48,6 +48,8 @@ jobs:
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart prod-stripe-connect-account-announcer BIND_ADDRESS=${{ secrets.BIND_ADDRESS }}"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart prod-stripe-connect-account-announcer REDIS_HOSTNAME=${{ secrets.REDIS_HOSTNAME }} REDIS_PORT=${{ secrets.REDIS_PORT }}"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart prod-stripe-connect-account-announcer REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}"
+          ssh dokku@$DOKKU_HOST -C "dokku ps:set-restart-policy prod-stripe-connect-account-announcer unless-stopped"
+          ssh dokku@$DOKKU_HOST -C "dokku ps:rebuild prod-stripe-connect-account-announcer"
           
       - id: deploy
         name: Deploy to dokku
