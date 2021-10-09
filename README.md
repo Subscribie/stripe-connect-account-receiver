@@ -77,6 +77,35 @@ Verify running:
 sudo systemctl status deno-stripe-connect-account-accounce-server.service
 ```
 
+## How to update an existing record
+
+> For example, the shop web address changes, and now redis must be updated
+  to store the new shop address:
+
+Example:
+
+1. Get the Stripe connect account id from Stripe,
+   by going to Stripe dashboard -> connect -> Clicking the account -> view the url (this contains the
+   connect account id.
+2. Connect to redis and update the record
+
+```
+# Connect to redis, verify the old address (`GET`), then update (`SET`) the new web address
+# with the same connect account key
+$ telnet 127.0.0.1 6379
+GET acct_abc123
+$41
+https://example.co.uk/
+SET acct_abc123 "http://example.com/"
++OK
+GET acct_abc123
+$24
+http://example.com/
+QUIT
++OK
+Connection closed by foreign host.
+```
+
 ## Smoke test
 
 ```
