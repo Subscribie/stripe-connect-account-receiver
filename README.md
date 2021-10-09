@@ -100,7 +100,7 @@ SET acct_abc123 "http://example.com/"
 +OK
 GET acct_abc123
 $24
-http://example.com/
+https://example.com/
 QUIT
 +OK
 Connection closed by foreign host.
