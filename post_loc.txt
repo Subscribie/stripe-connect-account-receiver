@@ -1,0 +1,1 @@
+{"stripe_connect_account_id":"abc123", "site_url":"example.com", "live_mode": 0}
