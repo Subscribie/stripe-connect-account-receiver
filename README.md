@@ -112,6 +112,12 @@ Connection closed by foreign host.
 curl -v -H 'Content-Type: application/json' -d '{}' <domain>:8001| grep 'Stripe connect account added or updated'
 ```
 
+### Load test
+With apache bench `ab`.
+```
+ab -p post_loc.txt -n 999900 -c 10 http://127.0.0.1:8001/
+```
+
 ### Speed
 
 Excluding the network the deno code can respond in under 4 milliseconds

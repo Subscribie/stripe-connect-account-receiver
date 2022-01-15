@@ -19,4 +19,4 @@ RUN echo export DENO_INSTALL="/home/deno/.deno" >> $HOME/.bashrc &&\
 
 EXPOSE 8001
 
-CMD /home/deno/.deno/bin/deno run --allow-net --allow-env --allow-read=.env,.env.example,.env.defaults index.js
+CMD /home/deno/.deno/bin/deno run --allow-net --allow-env --allow-read=.env,.env.example,.env.defaults app.ts
