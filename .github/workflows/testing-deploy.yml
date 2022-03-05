@@ -47,8 +47,9 @@ jobs:
           ssh dokku@$DOKKU_HOST -C "dokku apps:create testing-stripe-connect-account-announcer" | true
           echo The url will be testing-stripe-connect-account-announcer.pcpink.co.uk
           ssh dokku@$DOKKU_HOST -C "dokku git:initialize testing-stripe-connect-account-announcer"
-          ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer DENO_PORT=${{ secrets.DENO_PORT }} HOSTNAME=${{ secrets.HOSTNAME }}"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer BIND_ADDRESS=${{ secrets.BIND_ADDRESS }}"
+          ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer LISTEN_PORT=${{ secrets.LISTEN_PORT }}"
+          ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer PYTHON_LOG_LEVEL=${{ secrets.PYTHON_LOG_LEVEL }}"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer REDIS_HOSTNAME=${{ secrets.REDIS_HOSTNAME }} REDIS_PORT=${{ secrets.REDIS_PORT }}"
           ssh dokku@$DOKKU_HOST -C "dokku config:set --no-restart testing-stripe-connect-account-announcer REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}"
           ssh dokku@$DOKKU_HOST -C "dokku ps:set testing-stripe-connect-account-announcer restart-policy unless-stopped"
