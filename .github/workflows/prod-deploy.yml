@@ -65,5 +65,5 @@ jobs:
         name: Smoke test
         run: |
           set -x
-          curl -v -H 'Content-Type: application/json' -d '{}' prod-stripe-connect-account-announcer.pcpink.co.uk:8001| grep 'Stripe connect account added or updated'
+          curl -v -H 'Content-Type: application/json' -d '{"stripe_connect_account_id":"test", "site_url":"http://example.com"}' prod-stripe-connect-account-announcer.pcpink.co.uk:8001| grep 'test.*example.com'
 
