@@ -14,7 +14,9 @@ REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
 
 
 async def redis_set_value(key, value):
-    redis = await aioredis.from_url("redis://127.0.0.1", password="abc123")
+    redis = await aioredis.from_url(
+        f"redis://{REDIS_HOSTNAME}", password=REDIS_PASSWORD
+    )
     await redis.set(key, value)
 
 
