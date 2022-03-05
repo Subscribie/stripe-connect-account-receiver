@@ -26,18 +26,22 @@ Which is then parsed and stored by this program:
   const live_mode = parsedBody['live_mode'];
 ```
 
-## How to run
+## How to run locally
 
 Copy .env.example:
 
 ```
+#Update settings:
 cp .env.example .env
 ```
 
-
-
-## How to debug
-
+```
+python3 -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+# Run it
+uvicorn --reload  --log-level debug main:app
+```
 
 
 ## How to deploy
