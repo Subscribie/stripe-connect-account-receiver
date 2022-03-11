@@ -82,7 +82,7 @@ Connection closed by foreign host.
 ## Smoke test
 
 ```
-curl -v -H 'Content-Type: application/json' -d '{}' <domain>:8001| grep 'Stripe connect account added or updated'
+curl -v -H 'Conexampletent-Type: application/json' -d '{"stripe_connect_account_id":"example", "site_url":"example"}' http://testing-stripe-connect-account-announcer.pcpink.co.uk:8001| grep 'example'
 ```
 
 ### Load test
