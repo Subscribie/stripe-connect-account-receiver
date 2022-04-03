@@ -81,9 +81,7 @@ Connection closed by foreign host.
 
 ## Smoke test
 
-```
-curl -v -H 'Conexampletent-Type: application/json' -d '{"stripe_connect_account_id":"example", "site_url":"example"}' http://testing-stripe-connect-account-announcer.pcpink.co.uk:8001| grep 'example'
-```
+curl -v -H 'Content-Type: application/json' -d '{"stripe_connect_account_id":0, "site_url": "example.com"}' <domain>:8001 | grep 'example.com'
 
 ### Load test
 With apache bench `ab`.
