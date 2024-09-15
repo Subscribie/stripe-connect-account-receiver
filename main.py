@@ -7,8 +7,22 @@ from starlette.routing import Route
 from redis import asyncio as aioredis
 import logging
 from dotenv import load_dotenv
+import sentry_sdk
 
 load_dotenv(verbose=True)
+
+SENTRY_SDK_DSN = os.getenv("SENTRY_SDK_DSN")
+
+sentry_sdk.init(
+    dsn=SENTRY_SDK_DSN,
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
 
 log = logging.getLogger(__name__)
 
