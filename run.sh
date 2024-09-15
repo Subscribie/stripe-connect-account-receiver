@@ -1,3 +1,3 @@
 #!/bin/bash
 
-uvicorn --reload  --log-level debug main:app
+uvicorn --reload  --log-level debug --port 8001 main:app

@@ -81,7 +81,17 @@ Connection closed by foreign host.
 
 ## Smoke test
 
+See also `smoketest.sh`
+
+```
 curl -v -H 'Content-Type: application/json' -d '{"stripe_connect_account_id":0, "site_url": "example.com"}' <domain>:8001 | grep 'example.com'
+```
+
+## Quick (⏰ insecure ⏰) local redid for testing
+```
+# Podman/Docker
+docker run -p 6379:6379 redis --requirepass "secret"
+```
 
 ### Load test
 With apache bench `ab`.
