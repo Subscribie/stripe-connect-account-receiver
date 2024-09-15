@@ -44,7 +44,7 @@ async def index(request):
     data = await request.json()
     stripe_connect_account_id = data["stripe_connect_account_id"]
     site_url = data["site_url"]
-    log.error(f"{data}")
+    log.debug(f"{data}")
 
     await redis_set_value(stripe_connect_account_id, site_url)
 
