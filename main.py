@@ -2,7 +2,9 @@ import os
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.routing import Route
-import aioredis
+
+# See https://github.com/aio-libs-abandoned/aioredis-py?tab=readme-ov-file#-aioredis-is-now-in-redis-py-420rc1-  # noqa: E501
+from redis import asyncio as aioredis
 import logging
 from dotenv import load_dotenv
 
