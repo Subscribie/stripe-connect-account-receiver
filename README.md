@@ -66,6 +66,7 @@ Example:
 # Connect to redis, verify the old address (`GET`), then update (`SET`) the new web address
 # with the same connect account key
 $ telnet 127.0.0.1 6379
+AUTH <redis-password>
 GET acct_abc123
 $41
 https://example.co.uk/
